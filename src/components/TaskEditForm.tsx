@@ -5,6 +5,7 @@ import {
   FormControl,
   Select,
   FormHelperText,
+  type SelectChangeEvent,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../store/store";
@@ -16,7 +17,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { editTask } from "../store/task/tasksSlice";
 import { closeDialog } from "../store/dialog/dialogSlice";
 
-const TaskEditForm = ({ id }: { id: string}) => {
+const TaskEditForm = ({ id }: { id: string }) => {
   //finding the task that is supposed to be edited
   const task: Task = useSelector(
     (store: RootState) =>
@@ -40,9 +41,9 @@ const TaskEditForm = ({ id }: { id: string}) => {
   const dispatch = useDispatch();
 
   const handleFieldChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }
-    >
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>
   ) => {
     const { name, value } = e.target;
     setFields((prev) => ({
@@ -77,7 +78,7 @@ const TaskEditForm = ({ id }: { id: string}) => {
     setFields((prev) => ({ ...prev, updatedAt: new Date() }));
 
     dispatch(editTask(fields));
-    dispatch(closeDialog())
+    dispatch(closeDialog());
   };
 
   return (

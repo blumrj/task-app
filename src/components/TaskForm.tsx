@@ -5,13 +5,14 @@ import {
   FormControl,
   Select,
   FormHelperText,
+  type SelectChangeEvent,
 } from "@mui/material";
 import { useState, type FormEvent } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import type { Task } from "../types/task";
-import { nanoid } from 'nanoid'
+import { nanoid } from "nanoid";
 import { useDispatch } from "react-redux";
 import { addTask } from "../store/task/tasksSlice";
 import { closeDialog } from "../store/dialog/dialogSlice";
@@ -31,7 +32,7 @@ const TaskForm = () => {
     priority: "low",
     dueDate: null,
   });
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleErrorMessage = (fieldName: string, fieldValue: string) => {
     if (!fieldValue.trim()) {
@@ -42,9 +43,9 @@ const TaskForm = () => {
   };
 
   const handleFieldChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }
-    >
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>
   ) => {
     const { name, value } = e.target;
     setFields((prev) => ({
@@ -69,19 +70,18 @@ const TaskForm = () => {
     }
 
     const newTask: Task = {
-        id: nanoid(),
-        title: fields.title,
-        description: fields.description,
-        status: 'to do',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        dueDate: fields.dueDate,
-        priority: fields.priority
-    }
+      id: nanoid(),
+      title: fields.title,
+      description: fields.description,
+      status: "to do",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      dueDate: fields.dueDate,
+      priority: fields.priority,
+    };
 
-    dispatch(addTask(newTask))
-    dispatch(closeDialog())
-
+    dispatch(addTask(newTask));
+    dispatch(closeDialog());
   };
 
   return (
