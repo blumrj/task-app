@@ -29,7 +29,13 @@ const TaskDialog = () => {
   return (
     <>
       <Dialog open={isDialogOpen} onClose={() => dispatch(closeDialog())}>
-        <DialogTitle className="capitalize">title</DialogTitle>
+        <DialogTitle className="capitalize">
+          {dialogType === "add-form" && 'Create Task'}
+          {dialogType === "edit-form" && 'Edit Task'}
+          {dialogType === "delete-form" && (
+            'Delete Task'
+          )}
+        </DialogTitle>
         <DialogContent>
           {dialogType === "add-form" && <TaskForm />}
           {dialogType === "edit-form" && <TaskEditForm id={taskId!} />}

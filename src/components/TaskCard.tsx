@@ -14,6 +14,12 @@ import DragHandleIcon from "@mui/icons-material/DragHandle";
 import { useDispatch } from "react-redux";
 import { openDialog } from "../store/dialog/dialogSlice";
 
+const priorityColors: Record<string, string> = {
+  low: "#81c784", // greenish
+  medium: "#ffb74d", // orange
+  high: "#e57373", // red
+};
+
 const TaskCard = ({ item }: { item: Task }) => {
   const { priority, status, dueDate, title } = item;
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
@@ -27,6 +33,11 @@ const TaskCard = ({ item }: { item: Task }) => {
       }
     : undefined;
 
+  const isOverdue =
+    dueDate &&
+    status !== "done" &&
+    new Date(dueDate).getTime() < new Date().getTime();
+
   return (
     <>
       <Card
@@ -34,18 +45,40 @@ const TaskCard = ({ item }: { item: Task }) => {
         ref={setNodeRef}
         style={style}
         className="rounded-2xl"
+        sx={{
+          borderLeft: `6px solid ${priorityColors[priority]}`,
+          mb: 2,
+        }}
       >
         <CardContent {...listeners} {...attributes} className="cursor-grab">
           <Typography
             gutterBottom
             sx={{ color: "text.secondary", fontSize: 14 }}
           >
-            {priority} | {status} |{" "}
-            {dueDate && new Date(dueDate).toLocaleDateString()}
+            {priority} | {status}
           </Typography>
-          <Typography variant="h5" component="div">
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              textDecoration: status === "done" ? "line-through" : "none",
+            }}
+          >
             {title}
           </Typography>
+          {item.description && (
+            <Typography variant="body2" color="text.secondary">
+              {item.description}
+            </Typography>
+          )}
+          {dueDate && (
+            <Typography
+              variant="body2"
+              sx={{ color: isOverdue ? "error.main" : "text.secondary" }}
+            >
+              Due: {new Date(dueDate).toLocaleDateString()}
+            </Typography>
+          )}
         </CardContent>
         <div className="flex justify-between items-center">
           {/* Drag handle */}
