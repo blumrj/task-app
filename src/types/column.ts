@@ -1,0 +1,1 @@
+export type ColumnType = "to do" | "in progress" | 'done';
