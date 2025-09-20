@@ -1,29 +1,27 @@
 # 📝 Task Manager (Kanban Board)
 
-A React + Redux Toolkit Kanban board app with drag-and-drop tasks, priority-based styling, and MUI dialogs for creating, editing, and deleting tasks.  
+A React-based Kanban board application built to practice state management and UI skills. It uses Redux Toolkit for state handling, Material-UI for components, and localStorage for persistence.
 
----
+## 🚀 Features
 
-## 🚀 Highlights
-- Add, edit, and delete tasks  
-- Priority-based colors (`low`, `medium`, `high`)  
-- Overdue tasks highlighted in red  
-- Strikethrough titles for completed tasks  
-- Drag & drop between columns (`@dnd-kit/core`)  
-- Built with **React + TypeScript + Redux Toolkit + MUI**  
-
----
+- ✅ Add, edit, and delete tasks
+- 🎨 Priority-based color coding
+- 📅 Due date highlighting (red for overdue tasks)
+- 🖱️ Drag-and-drop between columns using @dnd-kit/core
+- ✨ Modal dialogs for task creation, editing, and deletion
+- 💾 Tasks and theme persist across sessions with localStorage
+- 🌙 Light and Dark theme toggle
 
 ## 🛠️ Tech Stack
-- React (Vite)  
-- TypeScript  
-- Redux Toolkit  
-- Material UI  
-- @dnd-kit/core 
 
----
+- React
+- Redux Toolkit
+- Material-UI
+- @dnd-kit/core
+- TypeScript
 
-## 📦 Setup
+## 📦 Installation
+
 Clone the repository and install dependencies:
 
 ```bash
